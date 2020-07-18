@@ -248,14 +248,14 @@ public class Prefix implements CommandExecutor {
             }
             else if (args.length == 2 && args[0].equals("list")){
                 if (user.hasPermission("prefixmanager.list.other")){
-                    Player otherUser = Bukkit.getPlayer(args[1]);
 
-                    if (otherUser == null){
-                        user.sendMessage("§aPlayer not found or offline");
+
+                    if (!data.containsKey(args[1])){
+                        user.sendMessage("§aPlayer not found");
                         return false;
                     }
 
-                    checkPrefixesPlayer(otherUser, true, user);
+                    checkPrefixesPlayer(args[1], true, user);
                 }
                 else {
                     user.sendMessage("§2You do not have permission for this command. If you feel this is an error, contact a server administrator");
@@ -432,32 +432,13 @@ public class Prefix implements CommandExecutor {
     /**
      * returns a list of prefixes for a specific player and prints it to another player
      *
-     * @param user the user to check
+     * @param name the name to check
      * @param print whether or not to print out the list
      * @param sendTo the user to send the message too
      * @return a list of prefixes
      */
-    private List<String> checkPrefixesPlayer(Player user, boolean print, Player sendTo){
+    private List<String> checkPrefixesPlayer(String name, boolean print, Player sendTo){
         this.data = this.plugin.getData();
-
-        String name = user.getName();
-
-        // if the player isn't already in the system, add them to the system with the default prefix
-        if (!data.containsKey(name)){
-            System.out.println("[Prefix Manager] New player: " + name + " registered.");
-
-            ArrayList<String> tempNames = new ArrayList<String>();
-            tempNames.add(defaultPrefix);
-
-            data.put(name, new PlayerPrefixes(tempNames));
-
-            List<String> currentPlayers = plugin.getConfig().getStringList("players");
-            currentPlayers.add(name);
-
-            this.plugin.getConfig().set("players", currentPlayers);
-            this.plugin.getConfig().set("data." + name, new String[]{defaultPrefix});
-            this.plugin.updateConfig();
-        }
 
         List<String> prefixes = data.get(name).getPrefixes();
 
