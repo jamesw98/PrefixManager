@@ -21,4 +21,8 @@ public class PlayerPrefixes {
     public void removePrefix(String toRemove){
         this.prefixes.remove(toRemove);
     }
+
+    public void clearPrefixes(){
+        this.prefixes.clear();
+    }
 }

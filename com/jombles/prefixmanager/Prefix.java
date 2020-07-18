@@ -262,6 +262,36 @@ public class Prefix implements CommandExecutor {
                     return false;
                 }
             }
+            else if (args.length == 3 && args[0].equals("transfer")){
+                if (user.hasPermission("prefixmanager.transfer")){
+                    String transferFromName = args[1];
+                    String transferToName = args[2];
+
+                    if (!data.containsKey(transferFromName)){
+                        user.sendMessage("§aTransfer from player not found");
+                        return false;
+                    }
+                    else if (!data.containsKey(transferToName)){
+                        user.sendMessage("§aTransfer to player not found");
+                        return false;
+                    }
+
+                    List<String> fromPrefixList = data.get(transferFromName).getPrefixes();
+
+                    data.get(transferToName).clearPrefixes();
+                    for (String pre : fromPrefixList){
+                        data.get(transferToName).addPrefix(pre);
+                    }
+
+                    this.plugin.getConfig().set("data." + transferToName, fromPrefixList);
+                    this.plugin.updateConfig();
+                    user.sendMessage("§aTransfer complete");
+                }
+                else {
+                    user.sendMessage("§2You do not have permission for this command. If you feel this is an error, contact a server administrator");
+                    return false;
+                }
+            }
             else {
                 user.sendMessage("§2Unrecognized command, type §a/prefix help §2for a list of commands");
             }
@@ -382,8 +412,6 @@ public class Prefix implements CommandExecutor {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nick " + user.getName() + " " + newPrefix + user.getName());
         }
     }
-
-
 
     /**
      * returns a list of prefixes for a specific player
