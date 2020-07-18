@@ -1,0 +1,11 @@
+permissionManager:
+  luckperms: true
+  pex: false
+  nickname: false
+
+players:
+  - test_player
+
+data:
+  test_player:
+    - "§1test"

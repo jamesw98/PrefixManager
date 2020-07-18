@@ -1,0 +1,8 @@
+name: PrefixManager
+version: 1.1
+author: jombles
+main: com.jombles.prefixmanager.Main
+
+commands:
+  prefix:
+    description: lists prefixs available to you
