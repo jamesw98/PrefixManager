@@ -20,7 +20,7 @@ public class Prefix implements CommandExecutor {
         this.data = data;
         this.plugin = plugin;
 
-        defaultPrefix = "§3[§bMember§3] §b";
+        defaultPrefix = this.plugin.getConfig().getString("default");
     }
 
     @Override
