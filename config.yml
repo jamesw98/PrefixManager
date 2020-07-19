@@ -3,8 +3,7 @@ permissionManager:
   pex: false
   nickname: false
 
-default:
-  - "§3[§bMember§3] §b"
+default: '§3[§bMember§3] §b'
 
 players:
   - test_player

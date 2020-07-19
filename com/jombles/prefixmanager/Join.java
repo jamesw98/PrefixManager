@@ -18,7 +18,7 @@ public class Join implements Listener {
     public Join(Main plugin, HashMap<String, PlayerPrefixes> data){
         this.plugin = plugin;
         this.data = data;
-        this.defaultPrefix = "§3[§bMember§3] §b";
+        this.defaultPrefix = this.plugin.getConfig().getString("default");
     }
 
     @EventHandler
